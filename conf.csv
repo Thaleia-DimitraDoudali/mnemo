@@ -6,3 +6,5 @@ SlowPort,6379
 KeyFile,workload/keys.txt
 ReqFile,workload/requests.txt
 MaxKeyID,10000
+Normalize,True
+Price,0.2

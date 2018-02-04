@@ -71,7 +71,7 @@ def plot_key_ops_distr(keyfile, opsfile, max_key_id):
     ax.set_xlim(0, max_key_id)
     ax.set_ylabel('Requests', fontsize=18)
     plt.savefig("figures/pattern.png", format='png', bbox_inches='tight')
-    plt.show()
+    #plt.show()
 
 ##### Main function called from other python file ####
 def main(keyfile, opsfile, max_key_id):
@@ -84,7 +84,3 @@ def main(keyfile, opsfile, max_key_id):
     res_dict['reads'] = reads
     res_dict['writes'] = writes
     return res_dict
-
-##### Main function called from command line ####
-if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
