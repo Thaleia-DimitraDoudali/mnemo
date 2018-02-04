@@ -1,0 +1,8 @@
+Name,redis
+FastIP,127.0.0.1
+FastPort,6378
+SlowIP,127.0.0.1
+SlowPort,6379
+KeyFile,workload/keys.txt
+ReqFile,workload/requests.txt
+MaxKeyID,10000
