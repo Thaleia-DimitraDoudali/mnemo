@@ -2,7 +2,7 @@
 An application profiler that provides users with a cost-benefit presentation of the different sizing configurations of a hybrid memory system, for in-memory key-value store workloads.
 
 ## Input
-Modify the input configuration file `conf.csv`
+Modify the input configuration file `conf.csv` <br/>
 Examples of the necessary text files in folder `workload/`
 
 ## Execution
@@ -10,11 +10,11 @@ Examples of the necessary text files in folder `workload/`
     python launch.py conf.csv
 
 ## Output
-Visualized results in folder `figures/`
+Visualized results in folder `figures/` <br/>
 Raw results in `output.txt`
 
 ### Architecture
-![system_design](https://user-images.githubusercontent.com/10352792/35782166-4938ccba-09c2-11e8-8205-3bdf5a96fb84.png)
+![system_design](https://user-images.githubusercontent.com/10352792/35788436-f344390c-0a02-11e8-91a0-2fabb1b284c7.jpg)
 
 
 All software components are implemented in Python.<br/>
