@@ -32,6 +32,8 @@ import java.util.*;
  * <p>
  * Properties to control the client:
  * <UL>
+ * <LI><b>customkeyfile</b>: file with custom key sequence (default: nil) 
+ * <LI><b>customopsfile</b>: file with custom operation sequence (default: nil) 
  * <LI><b>fieldcount</b>: the number of fields in a record (default: 10)
  * <LI><b>fieldlength</b>: the size of each field (default: 100)
  * <LI><b>readallfields</b>: should reads read all fields (true) or just one (false) (default: true)
@@ -73,6 +75,16 @@ public class CoreWorkload extends Workload {
   public static final String TABLENAME_PROPERTY_DEFAULT = "usertable";
 
   protected String table;
+  
+  /**
+   * The name of the property for the file path with custom key sequence, if any.
+   */
+  public static final String FIELD_CUSTOM_KEY_FILE = "customkeyfile";
+  
+  /**
+   * The name of the property for the file path with custom operation sequence, if any.
+   */
+  public static final String FIELD_CUSTOM_OPS_FILE = "customopsfile";
 
   /**
    * The name of the property for the number of fields in a record.
@@ -307,6 +319,10 @@ public class CoreWorkload extends Workload {
   public static final String INSERTION_RETRY_INTERVAL = "core_workload_insertion_retry_interval";
   public static final String INSERTION_RETRY_INTERVAL_DEFAULT = "3";
 
+  protected String customkeyfile;
+  protected String customopsfile;
+  protected CustomGenerator customoperationchooser;
+
   protected NumberGenerator keysequence;
   protected DiscreteGenerator operationchooser;
   protected NumberGenerator keychooser;
@@ -357,7 +373,7 @@ public class CoreWorkload extends Workload {
   @Override
   public void init(Properties p) throws WorkloadException {
     table = p.getProperty(TABLENAME_PROPERTY, TABLENAME_PROPERTY_DEFAULT);
-
+    
     fieldcount =
         Long.parseLong(p.getProperty(FIELD_COUNT_PROPERTY, FIELD_COUNT_PROPERTY_DEFAULT));
     fieldnames = new ArrayList<>();
@@ -421,8 +437,16 @@ public class CoreWorkload extends Workload {
       orderedinserts = true;
     }
 
+    customkeyfile = p.getProperty(FIELD_CUSTOM_KEY_FILE);
+    customopsfile = p.getProperty(FIELD_CUSTOM_OPS_FILE);
+    
     keysequence = new CounterGenerator(insertstart);
     operationchooser = createOperationGenerator(p);
+
+    if (customopsfile != "") {
+      customoperationchooser = new CustomGenerator(customopsfile);
+      operationchooser = null;
+    }
 
     transactioninsertkeysequence = new AcknowledgedCounterGenerator(recordcount);
     if (requestdistrib.compareTo("uniform") == 0) {
@@ -595,7 +619,14 @@ public class CoreWorkload extends Workload {
    */
   @Override
   public boolean doTransaction(DB db, Object threadstate) {
-    String operation = operationchooser.nextString();
+    String operation = "";
+
+    if (operationchooser == null) {
+      operation = customoperationchooser.nextString();
+    } else {
+      operation = operationchooser.nextString();
+    }
+    
     if(operation == null) {
       return false;
     }
