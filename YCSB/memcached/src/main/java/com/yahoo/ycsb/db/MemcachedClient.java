@@ -67,7 +67,7 @@ public class MemcachedClient extends DB {
   private long shutdownTimeoutMillis;
   private int objectExpirationTime;
 
-  public static final String HOSTS_PROPERTY = "memcached.hosts";
+  public static final String HOSTS_PROPERTY = "memcached.host";
 
   public static final int DEFAULT_PORT = 11211;
 
