@@ -1,8 +1,9 @@
+Property, Value
 Name,memcached
 FastIP,127.0.0.1
 FastPort,11211
 SlowIP,127.0.0.1
-SlowPort,6379
+SlowPort,11212
 KeyFile,/home/thaleia/mnemo/workload/keys.txt
 ReqFile,/home/thaleia/mnemo/workload/requests.txt
 MaxKeyID,10000
