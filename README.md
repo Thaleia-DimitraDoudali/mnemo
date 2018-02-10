@@ -1,5 +1,9 @@
 # mnemo
-An application profiler that provides users with a cost-benefit presentation of the different sizing configurations of a hybrid memory system, for in-memory key-value store workloads.
+An application profiler that provides users with a cost-benefit presentation of the different sizing configurations of a hybrid memory system, for in-memory key-value store workloads.<br/>
+
+## Prerequisites 
+- Default YCSB installation
+- Python installation
 
 ## Input
 Modify the input configuration file `conf.csv` <br/>
@@ -18,6 +22,6 @@ Raw results in `output.txt`
 
 
 All software components are implemented in Python.<br/>
-The Sensitivity Engine includes a customized version of the YCSB client. 
+The Sensitivity Engine includes a customized version of the YCSB client. <br/>
 
 
