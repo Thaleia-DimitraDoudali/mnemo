@@ -30,7 +30,7 @@ if __name__ == "__main__":
     conf = read_input(sys.argv[1])
 
     # Step 1: Feed into the Sensitivity Engine the input workload, in order to get the performance baselines for the all-data-in-fast and all-data-in-slow memory cases.
-    fast_base, slow_base = sensitivity.main()
+    fast_base, slow_base = sensitivity.main(conf['Name'], conf['FastIP'], conf['FastPort'], conf['SlowIP'], conf['SlowPort'], conf['KeyFile'], conf['ReqFile'], conf['MaxKeyID'], conf['RequestCount'])
 
     # Step 2: Feed into the Pattern Engine, the workload related input and get the request access pattern as a dictionary
     reqs_dict = pattern.main(conf['KeyFile'], conf['ReqFile'], conf['MaxKeyID'])

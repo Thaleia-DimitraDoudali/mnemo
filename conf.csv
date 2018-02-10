@@ -1,10 +1,11 @@
-Name,redis
+Name,memcached
 FastIP,127.0.0.1
-FastPort,6378
+FastPort,11211
 SlowIP,127.0.0.1
 SlowPort,6379
-KeyFile,workload/keys.txt
-ReqFile,workload/requests.txt
+KeyFile,/home/thaleia/mnemo/workload/keys.txt
+ReqFile,/home/thaleia/mnemo/workload/requests.txt
 MaxKeyID,10000
+RequestCount,100000
 Normalize,True
 Price,0.2

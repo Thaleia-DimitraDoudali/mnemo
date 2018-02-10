@@ -1,4 +1,4 @@
-import re
+import re, os
 
 ### Parses the results file of YCSB client execution.
 ## Uses regular expressions to match the text that will give the corresponding metric
@@ -43,12 +43,35 @@ def get_perf_baselines(fast_file, slow_file):
 
     return fast_dict, slow_dict
 
+# Executes the customized version of YCSB client 
+# against the specified data store
+def run_client(name, ip, port, res_file, key_file, ops_file, num_keys, num_ops):
+    
+    cmd = ("cd YCSB/; bin/ycsb run " + name + 
+        #" -s -P workloads/workloada" + 
+        " -s -p workload=com.yahoo.ycsb.workloads.CoreWorkload" +
+        " -p recordcount=" + num_keys + 
+        " -p operationcount=" + num_ops + 
+        " -p " + "customkeyfile=" + key_file +  
+        " -p " + "customopsfile=" + ops_file +  
+        " -p " + name + ".host=" + ip + 
+        " -p " + name + ".port=" + port +  
+        " > ../" + res_file )
+    
+    print cmd
+    os.system(cmd)
+
+
 ##### Main function called from other python file ####
-def main():
-    # Run the input workload in all-fast
-    fast_file = "workload/fast_results.txt"
-    # Run the input workload in all-slow
-    slow_file = "workload/slow_results.txt"
-    # Analyze the result files on the client and get the performance baselines
+def main(name, fast_ip, fast_port, slow_ip, slow_port, key_file, ops_file, num_keys, num_ops):
+    # Step 1: Run the input workload in all-fast
+    fast_file = "raw_results/fast_results.txt"
+    run_client(name, fast_ip ,fast_port, fast_file, key_file, ops_file, num_keys, num_ops)
+    
+    # Step 2: Run the input workload in all-slow
+    slow_file = "raw_results/slow_results.txt"
+    run_client(name, slow_ip ,slow_port, slow_file, key_file, ops_file, num_keys, num_ops)
+    
+    # Step 3: Analyze the result files on the client and get the performance baselines
     fast_dict, slow_dict = get_perf_baselines(fast_file, slow_file)
     return fast_dict, slow_dict
