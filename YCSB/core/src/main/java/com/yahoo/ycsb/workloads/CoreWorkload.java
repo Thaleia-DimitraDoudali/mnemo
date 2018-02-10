@@ -322,6 +322,7 @@ public class CoreWorkload extends Workload {
   protected String customkeyfile;
   protected String customopsfile;
   protected CustomGenerator customoperationchooser;
+  protected CustomGenerator customkeychooser;
 
   protected NumberGenerator keysequence;
   protected DiscreteGenerator operationchooser;
@@ -446,6 +447,10 @@ public class CoreWorkload extends Workload {
     if (customopsfile != "") {
       customoperationchooser = new CustomGenerator(customopsfile);
       operationchooser = null;
+    }
+
+    if (customkeyfile != "") {
+      customkeychooser = new CustomGenerator(customkeyfile);
     }
 
     transactioninsertkeysequence = new AcknowledgedCounterGenerator(recordcount);
@@ -679,6 +684,9 @@ public class CoreWorkload extends Workload {
 
   long nextKeynum() {
     long keynum;
+    if (customkeyfile != "") {
+      keynum = Long.valueOf(customkeychooser.nextString());
+    }
     if (keychooser instanceof ExponentialGenerator) {
       do {
         keynum = transactioninsertkeysequence.lastValue() - keychooser.nextValue().intValue();
