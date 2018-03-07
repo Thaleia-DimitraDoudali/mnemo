@@ -11,6 +11,7 @@ def parse_client_output(fname):
     exp_rlat = re.compile("\[READ\], AverageLatency\(us\), (?P<t>\d+.\d+)")
     exp_wlat = re.compile("\[UPDATE\], AverageLatency\(us\), (?P<t>\d+.\d+)")
 
+    res_dict['avg_write'] = 0.0
     with open(fname, 'r') as my_file:
         lines = my_file.readlines()
         for row in lines:
