@@ -18,7 +18,7 @@ Visualized results in folder `figures/` <br/>
 Raw results in `output.txt`
 
 ### Architecture
-![system_design](https://user-images.githubusercontent.com/10352792/35788436-f344390c-0a02-11e8-91a0-2fabb1b284c7.jpg)
+![mnemo_design](https://user-images.githubusercontent.com/10352792/48679845-f1bfc780-eb62-11e8-8160-274a5d48af6c.jpg)
 
 
 All software components are implemented in Python.<br/>
